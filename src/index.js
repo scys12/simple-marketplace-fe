@@ -1,13 +1,31 @@
-import React from 'react';
+import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import { Helmet } from 'react-helmet'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import GlobalStyle from './utils/global';
+import theme from './utils/theme';
+import store from './store/index';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <Fragment>
+        <Helmet>
+          <title>Computer Marketplace</title>
+          <meta
+            name="description"
+            content="A simple computer marketplace where you can buy all your computer stuff here"
+          />
+        </Helmet>
+        <App/>
+        <GlobalStyle/>
+      </Fragment>
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('root')
 );
 

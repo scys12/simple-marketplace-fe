@@ -1,0 +1,21 @@
+{
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 6
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "rules": {
+        "no-undef": "off",
+        "react/prop-types": "off",
+        "react/display-name": "off",
+        "no-useless-escape": "off"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
