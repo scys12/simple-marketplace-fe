@@ -1,18 +1,15 @@
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet'
-import './index.css';
-import App from './App';
+import App from './containers/App/index';
 import * as serviceWorker from './serviceWorker';
 import GlobalStyle from './utils/global';
 import theme from './utils/theme';
-import store from './store/index';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
       <Fragment>
         <Helmet>
           <title>Computer Marketplace</title>
@@ -24,8 +21,7 @@ ReactDOM.render(
         <App/>
         <GlobalStyle/>
       </Fragment>
-    </ThemeProvider>
-  </Provider>,
+    </ThemeProvider>,
   document.getElementById('root')
 );
 
