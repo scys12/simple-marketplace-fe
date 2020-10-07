@@ -5,10 +5,10 @@ const Header = () =>{
         <NavBar>
             <NavBarGroup>
                 <NavBarLink>
-                    <A href='#'>Home</A>
+                    <A href='#'>Login</A>
                 </NavBarLink>
                 <NavBarLink>
-                    <A href='#'>Features</A>
+                    <A href='#'>Register</A>
                 </NavBarLink>
                 <NavBarLink>
                     <A href='#'>About</A>

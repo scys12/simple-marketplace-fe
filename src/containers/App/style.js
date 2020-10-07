@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const header = styled.div`
+export const AppWrapper = styled.div`
   display: flex;
   position: relative;
   align-items: flex-start;
@@ -9,4 +9,5 @@ const header = styled.div`
   user-select: none;
 `;
 
-export default header;
+export const MainWrapper = styled.div`
+`;
