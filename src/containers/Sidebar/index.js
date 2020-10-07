@@ -18,22 +18,22 @@ const Sidebar = ({allCategories, selected, staticCategories}) => {
 }
 
 const renderStatic = (categories, selected, setIsOpened) => {
-    return categories.map((category, idx) => (
+    return categories.map((category) => (
         <LinkWrap
-            to={`/${category}`}
-            key={idx}
+            to={`/${category.link}`}
+            key={category.id}
             onClick={setIsOpened ? () => setIsOpened(false) : null}
         >
             <MenuItem
-                title={category}
-                selected={category === selected ? true : false}
+                title={category.name}
+                selected={category.name === selected ? true : false}
             />
         </LinkWrap>
     ));
 }
 
-const renderCategories = (categories, selected, setIsOpened) => {
-    return categories.map((category) => (
+const renderCategories = (allCategories, selected, setIsOpened) => {
+    return allCategories.map((category) => (
         <LinkWrap
             to={`/${category}`}
             key={category.id}

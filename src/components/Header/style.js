@@ -5,7 +5,7 @@ export const NavBar = styled.div`
     height:100%;
     width:100%;
     padding: 10px 0;
-    box-shadow: 0px 0px 7px 2px #ddd;
+    box-shadow: 1px 0px 5px 1px var(--shadow-color);
     justify-content: flex-end;
 `;
 

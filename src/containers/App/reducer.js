@@ -16,7 +16,18 @@ const tenLatestItemReducer = (state=INITIAL_STATE, action) => {
 };
 
 const INITIAL_STATE_CATEGORY = {
-    staticCategories: ['Home', 'All Products'],
+    staticCategories: [
+        {
+            id:'0',
+            name:'Home',
+            link:'',
+        },
+        {
+            id: '1',
+            name: 'All Products',
+            link:'products',
+        }
+    ],
     loading: true,
 };
 

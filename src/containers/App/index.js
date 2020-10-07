@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppWrapper, MainWrapper } from './style'
 import { Switch, Router, Route } from 'react-router-dom';
 import Header from '../../components/Header/index';
@@ -9,13 +9,20 @@ import Sidebar from '../Sidebar/index'
 import { getTenLatestItem, getCategories } from './actions'
 import { connect } from 'react-redux';
 
-const App = ({getTenLatestItem, getCategories, isLoading}) => {
+const App = ({getTenLatestItem, getCategories, isLoadingItem, isLoadingCategory}) => {
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         getTenLatestItem();
     }, [getTenLatestItem])
     useEffect(() => {
         getCategories();
     }, [getCategories])
+    useEffect(() => {
+        const res = isLoadingItem || isLoadingCategory
+        setIsLoading(res)
+    }, [isLoadingItem, isLoadingCategory])
+
     return isLoading ? <MainWrapper>Loading...</MainWrapper> : (
         <Router history={history}>
             <AppWrapper>
@@ -33,10 +40,13 @@ const App = ({getTenLatestItem, getCategories, isLoading}) => {
 }
 
 const mapStateToProps = ({ latestItem, categories }) => {
-    return { isLoading: latestItem.loading && categories.loading}
+    return { 
+        isLoadingItem: latestItem.loading,
+        isLoadingCategory: categories.loading,
+    }
 }
 
 export default connect(
     mapStateToProps,
-    { getTenLatestItem, getCategories },
+    { getTenLatestItem, getCategories }
 )(App)
