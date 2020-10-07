@@ -23,7 +23,7 @@ const App = ({getTenLatestItem, getCategories, isLoadingItem, isLoadingCategory}
         setIsLoading(res)
     }, [isLoadingItem, isLoadingCategory])
 
-    return isLoading ? <MainWrapper>Loading...</MainWrapper> : (
+    return isLoading ? <MainWrapper>Loading...</MainWrapper> : (        
         <Router history={history}>
             <AppWrapper>
                 <Sidebar />

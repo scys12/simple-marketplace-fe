@@ -35,7 +35,7 @@ const renderStatic = (categories, selected, setIsOpened) => {
 const renderCategories = (allCategories, selected, setIsOpened) => {
     return allCategories.map((category) => (
         <LinkWrap
-            to={`/${category}`}
+            to={`/${category.name.toLowerCase()}`}
             key={category.id}
             onClick={setIsOpened ? () => setIsOpened(false) : null}
         >
@@ -49,8 +49,8 @@ const renderCategories = (allCategories, selected, setIsOpened) => {
 
 const mapStateToProps = ({categories}) => {    
     return {
-        allCategories: categories.data,
-        selected: 'Home',
+        allCategories: categories.types,
+        selected: categories.selected,
         staticCategories: categories.staticCategories,
     };
 };

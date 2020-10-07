@@ -10,4 +10,8 @@ export const AppWrapper = styled.div`
 `;
 
 export const MainWrapper = styled.div`
+  display: flex;
+  width:100%;
+  flex-direction:column;
+  height:100%;
 `;

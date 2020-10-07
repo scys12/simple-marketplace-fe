@@ -36,9 +36,13 @@ const categoriesReducer = (state=INITIAL_STATE_CATEGORY, action) => {
         case  CONSTANT.CATEGORIES_REQUEST:
             return { ...state };
         case CONSTANT.CATEGORIES_SUCCESS:
-            return {...state, loading:false, ...action.payload };
+            return {...state, loading:false, types:action.payload };
         case CONSTANT.CATEGORIES_FAIL:
             return {...state, error: action.payload };
+        case CONSTANT.SELECTED_MENU :
+            return {...state, selected: action.payload};
+        case CONSTANT.REMOVE_SELECTED_MENU :
+            return {...state, selected:null};
         default:
             return state;
     }
