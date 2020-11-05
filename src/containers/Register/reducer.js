@@ -1,16 +1,16 @@
-import * as CONSTANT from './contants'
+import * as CONSTANT from './constants'
 const INITIAL_STATE = {loading: true,};
 
-const loginReducer = (state=INITIAL_STATE, action) => {
+const registerReducer = (state=INITIAL_STATE, action) => {
     switch(action.type){
-        case  CONSTANT.TEN_LATEST_ITEM_REQUEST:
+        case  CONSTANT.REGISTER_REQUEST:
             return { ...state };
-        case CONSTANT.TEN_LATEST_ITEM_SUCCESS:
-            return {loading:false, ...action.payload };
-        case CONSTANT.TEN_LATEST_ITEM_FAIL:
-            return {...state, error: action.payload };
+        case CONSTANT.REGISTER_SUCCESS:
+            return {loading:false, status: action.payload };
+        case CONSTANT.REGISTER_FAIL:
+            return {...state, ...action.payload };
         default:
             return state;
     }
 };
-export {loginReducer};
+export {registerReducer};

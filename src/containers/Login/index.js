@@ -1,64 +1,67 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import Input from "../../components/Input/index";
-import { Error, Form, Wrapper, Heading, Button, ButtonWrapper } from "./style";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationTriangle,faKey, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { Form, Wrapper, Heading, Button, ButtonWrapper } from "./style";
+import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 import { connect } from 'react-redux';
-import {login} from "./action"
-const renderError = (text) => {
-    return(
-        <Error>
-            <FontAwesomeIcon
-                icon={faExclamationTriangle}
-                size="2x"
-                style={{ marginRight: "5px"}}
-            />
-            <p>{text}</p>
-        </Error>
-    );
-}
+import {login} from "./action";
+import Loader from '../../components/Loader/index';
+import ErrorForm from '../../components/ErrorForm/index';
+import Notification from '../../components/Notification/index';
 
-const Login = ({login}) => {
+const Login = ({login, userData}) => {
+    const [isLoading, setLoading] = useState(false);
     const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data) => login(data);
-    return (
+    const onSubmit = (data) => {
+        setLoading(true);
+        login(data);
+    };
+
+    useEffect(() => {
+        setLoading(false);
+    }, [userData.loading, isLoading])
+        
+    return isLoading ?
+        <div>
+            <Loader/>
+        </div> : (        
         <Wrapper>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Heading>Login</Heading>
+                {userData.error && (
+                    <Notification type={'danger'}>Username/Password wrong</Notification>
+                )}
                 <Input
-                    label="Email"
+                    name="username"
+                    label="Username"
                     register={register({ required: true, maxLength: 25 })}
-                    type="email"
+                    type="text"
+                    icon={faUser}
+                    size="2x"
+                    style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
                 >
-                    <FontAwesomeIcon
-                        icon={faEnvelope}
-                        size="2x"
-                        style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
-                    />
                 </Input>
-                {errors.Email && errors.Email.type === 'required' && (
-                    renderError('This is required')
+                {errors.username && errors.username.type === 'required' && (
+                    <ErrorForm>This is required</ErrorForm>
                 )}
-                {errors.Email && errors.Email.type === 'maxLength' && (
-                    renderError('Maximal 25 character length')
+                {errors.username && errors.username.type === 'maxLength' && (
+                    <ErrorForm>Maximal 25 character length</ErrorForm>
                 )}
                 <Input
+                    name="password"
                     label="Password"
                     register={register({ required: true, maxLength: 25, minLength: 4 })}
                     type="password"
+                    icon={faKey}
+                    size="2x"
+                    style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
                 >
-                    <FontAwesomeIcon
-                        icon={faKey}
-                        size="2x"
-                        style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
-                    />
                 </Input>
-                    {errors.Password && errors.Password.type === 'required' && (
-                        renderError('This is required')
+                    {errors.password && errors.password.type === 'required' && (
+                        <ErrorForm>This is required</ErrorForm>
                     )}
-                    {errors.Password && (errors.Password.type === 'maxLength' || errors.Password.type === 'minLength') && (
-                        renderError('Minimum 4 character length and maximal 25 character length')
+                    {errors.password && (errors.password.type === 'maxLength' || errors.password.type === 'minLength') && (
+                        <ErrorForm>Minimum 4 character length and maximal 25 character length</ErrorForm>
                     )}
                 <ButtonWrapper>
                     <Button type="submit">LOGIN</Button>
@@ -68,7 +71,11 @@ const Login = ({login}) => {
     );
 };
 
+const mapStateToProps = ({ userData }) => {
+    return { userData }
+}
+
 export default connect(
-    {},
+    mapStateToProps,
     { login }
 )(Login)

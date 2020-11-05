@@ -19,7 +19,7 @@ const HomePage = ({ selectMenu, latestItem }) =>{
                 {renderProductList(latestItem.items)}
             </ProductItemWrapper>
             <BottomWrapper>
-                <ButtonWrapper>
+                <ButtonWrapper to={'/'}>
                     Lihat Semua Produk
                 </ButtonWrapper>
             </BottomWrapper>

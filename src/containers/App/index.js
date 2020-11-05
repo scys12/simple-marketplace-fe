@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AppWrapper, MainWrapper } from './style'
+import { AppWrapper, MainWrapper, LoadWrapper } from './style'
 import { Switch, Router, Route } from 'react-router-dom';
 import Header from '../../components/Header/index';
 import Footer from '../../components/Footer/index';
@@ -10,6 +10,7 @@ import { getTenLatestItem, getCategories } from './actions'
 import { connect } from 'react-redux';
 import Login from '../Login/index'
 import Register from '../Register/index'
+import Loader from '../../components/Loader/index'
 
 const App = ({getTenLatestItem, getCategories, isLoadingItem, isLoadingCategory}) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +26,10 @@ const App = ({getTenLatestItem, getCategories, isLoadingItem, isLoadingCategory}
         setIsLoading(res)
     }, [isLoadingItem, isLoadingCategory])
 
-    return isLoading ? <MainWrapper>Loading...</MainWrapper> : (        
+    return isLoading ? 
+        <LoadWrapper> 
+            <Loader/> 
+        </LoadWrapper> : (        
         <Router history={history}>
             <AppWrapper>
                 <Sidebar />

@@ -45,13 +45,3 @@ export const Wrapper = styled.div`
     justify-content: center;
     padding: 20px;
 `;
-
-export const Error = styled.div`
-    margin: 0 10px;
-    color: #de2323;
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items:center;
-    font-size:10px;
-`;

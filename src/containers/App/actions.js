@@ -7,7 +7,7 @@ const getTenLatestItem = () => async (dispatch) => {
         const { data } = await Axios.get("/latest");
         dispatch({ type: CONSTANT.TEN_LATEST_ITEM_SUCCESS, payload: data.data});
     } catch (error) {
-        dispatch({ type: CONSTANT.TEN_LATEST_ITEM_FAIL, payload: error.message });
+        dispatch({ type: CONSTANT.TEN_LATEST_ITEM_FAIL, payload: error.response.data });
     }
 };
 
@@ -17,7 +17,7 @@ const getCategories = () => async (dispatch) => {
         const { data } = await Axios.get("/categories");
         dispatch({ type: CONSTANT.CATEGORIES_SUCCESS, payload: data.data});
     } catch (error) {
-        dispatch({ type: CONSTANT.CATEGORIES_FAIL, payload: error.message });
+        dispatch({ type: CONSTANT.CATEGORIES_FAIL, payload: error.response.data });
     }
 };
 

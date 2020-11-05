@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {InputWrapper, InputGroup, Wrapper} from './style'
 const Input = (props) => {    
@@ -6,11 +7,15 @@ const Input = (props) => {
             <label>{props.label}</label>
             <InputGroup>
                 <InputWrapper 
-                    name={props.label} 
+                    name={props.name} 
                     ref={props.register} 
                     type={props.type}
                 />
-                {props.children}
+                <FontAwesomeIcon
+                    icon={props.icon}
+                    size={props.size}
+                    style={props.style}
+                />
             </InputGroup>
         </Wrapper>
     );

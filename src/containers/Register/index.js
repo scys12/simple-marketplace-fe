@@ -1,106 +1,121 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, {useState, useEffect} from "react";
+import { useForm, } from "react-hook-form";
 import Input from "../../components/Input/index";
-import { Error, Form, Wrapper, Heading, Button, ButtonWrapper } from "./style";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationTriangle,faKey, faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import {Form, Wrapper, Heading, Button, ButtonWrapper } from "./style";
+import {faKey, faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import { connect } from 'react-redux';
+import ErrorForm from '../../components/ErrorForm/index';
+import {registerUser} from './action'
+import Loader from '../../components/Loader/index';
+import Notification from '../../components/Notification/index';
 
-const renderError = (text) => {
-    return(
-        <Error>
-            <FontAwesomeIcon
-                icon={faExclamationTriangle}
-                size="2x"
-                style={{ marginRight: "5px"}}
-            />
-            <p>{text}</p>
-        </Error>
-    );
-}
+const Register = ({registerUser, registerData}) => {
+    const { register, handleSubmit, watch, errors } = useForm();
+    const [ isLoading, setLoading] = useState(false);
+    const [ isSamePassword, setSamePassword] = useState(true);
 
-const Register = () => {
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data) => console.log(data);
-    return (
+    const onSubmit = (data) => {
+        setLoading(true);
+        registerUser(data);
+    };
+
+    useEffect( () => {
+        setLoading(false);
+    }, [registerData]);
+
+    const checkPassword = (value) => {
+        setSamePassword(true);
+        return value === watch('password');
+    };
+
+    const setPasswordMessage = () => {
+        setSamePassword(false);
+        return "Passwords don't match";
+    };
+
+    return isLoading ? 
+        <div>
+            <Loader/>
+        </div> : (
         <Wrapper>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Heading>Register</Heading>
+                {registerData.status === true && (
+                    <Notification type={'success'}>Account created</Notification>
+                )}
+                {registerData.status === false && (
+                    <Notification type={'danger'}>Username/Email exists</Notification>
+                )}
                 <Input
+                    name="email"
                     label="Email"
                     register={register({ required: true, maxLength: 25 })}
                     type="email"
+                    icon={faEnvelope}
+                    size="2x"
+                    style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
                 >
-                    <FontAwesomeIcon
-                        icon={faEnvelope}
-                        size="2x"
-                        style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
-                    />
                 </Input>
 
-                {errors.Email && errors.Email.type === 'required' && (
-                    renderError('This is required')
+                {errors.email && errors.email.type === 'required' && (
+                    <ErrorForm>This is required</ErrorForm>
                 )}
-                {errors.Email && errors.Email.type === 'maxLength' && (
-                    renderError('Maximal 25 character length')
+                {errors.email && errors.email.type === 'maxLength' && (
+                    <ErrorForm>Maximal 25 character length</ErrorForm>
                 )}
 
                 <Input
+                    name="username"                
                     label="Username"
                     register={register({ required: true, maxLength: 25, minLength: 4 })}
                     type="text"
+                    icon={faUser}
+                    size="2x"
+                    style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
                 >
-                    <FontAwesomeIcon
-                        icon={faUser}
-                        size="2x"
-                        style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
-                    />
                 </Input>
-
-                {errors.Username && errors.Username.type === 'required' && (
-                    renderError('This is required')
+                {errors.username && errors.username.type === 'required' && (
+                    <ErrorForm>This is required</ErrorForm>
                 )}
-                {errors.Username && (errors.Username.type === 'maxLength' || errors.Username.type === 'minLength') && (
-                    renderError('Minimum 4 character length and maximal 25 character length')
+                {errors.username && (errors.username.type === 'maxLength' || errors.username.type === 'minLength') && (
+                    <ErrorForm>Minimum 4 character length and maximal 25 character length</ErrorForm>
+                    
                 )}
 
                 <Input
+                    name="password"
                     label="Password"
                     register={register({ required: true, maxLength: 25, minLength: 4 })}
                     type="password"
+                    icon={faKey}
+                    size="2x"
+                    style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
                 >
-                    <FontAwesomeIcon
-                        icon={faKey}
-                        size="2x"
-                        style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
-                    />
                 </Input>
-
-                {errors.Password && errors.Password.type === 'required' && (
-                    renderError('This is required')
+                {errors.password && errors.password.type === 'required' && (
+                    <ErrorForm>This is required</ErrorForm>
                 )}
-                {errors.Password && (errors.Password.type === 'maxLength' || errors.Password.type === 'minLength') && (
-                    renderError('Minimum 4 character length and maximal 25 character length')
+                {errors.password && (errors.password.type === 'maxLength' || errors.password.type === 'minLength') && (
+                    <ErrorForm>Minimum 4 character length and maximal 25 character length</ErrorForm>
                 )}
 
                 <Input
-                    label="Confirmation"
-                    register={register({ required: true, maxLength: 25, minLength: 4 })}
+                    name="confirmationPassword"
+                    label="Confirmation Password"
+                    register={register({ validate: (value) => checkPassword(value) || setPasswordMessage() ,required: true })}
                     type="password"
+                    icon={faKey}
+                    size="2x"
+                    style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
                 >
-                    <FontAwesomeIcon
-                        icon={faKey}
-                        size="2x"
-                        style={{ marginRight: "10px", color: "var(--color-primary-light)" }}
-                    />
                 </Input>
+                {errors.confirmationPassword && errors.confirmationPassword.type === 'required' && (
+                    <ErrorForm>This is required</ErrorForm>
+                )}
+                {!isSamePassword && (
+                    <ErrorForm>Passwords dont match</ErrorForm>
+                )}
 
-                {errors.Confirmation && errors.Confirmation.type === 'required' && (
-                    renderError('This is required')
-                )}
-                {errors.Confirmation && (errors.Confirmation.type === 'maxLength' || errors.Confirmation.type === 'minLength') && (
-                    renderError('Minimum 4 character length and maximal 25 character length')
-                )}
-                
                 <ButtonWrapper>
                     <Button type="submit">REGISTER</Button>
                 </ButtonWrapper>
@@ -109,4 +124,11 @@ const Register = () => {
     );
 };
 
-export default Register;
+const mapStateToProps = ({ registerData }) => {
+    return { registerData };
+};
+
+export default connect(
+    mapStateToProps,
+    { registerUser }
+)(Register)
