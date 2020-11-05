@@ -5,13 +5,13 @@ const Header = () =>{
         <NavBar>
             <NavBarGroup>
                 <NavBarLink>
-                    <A href='#'>Login</A>
+                    <A href='/login'>Login</A>
                 </NavBarLink>
                 <NavBarLink>
-                    <A href='#'>Register</A>
+                    <A href='/register'>Register</A>
                 </NavBarLink>
                 <NavBarLink>
-                    <A href='#'>About</A>
+                    <A href='/about'>About</A>
                 </NavBarLink>
             </NavBarGroup>
         </NavBar>

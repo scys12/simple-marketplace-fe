@@ -1,4 +1,4 @@
-import * as CONSTANT from './contants'
+import * as CONSTANT from './constants'
 import Axios from "axios";
 
 const getTenLatestItem = () => async (dispatch) => {

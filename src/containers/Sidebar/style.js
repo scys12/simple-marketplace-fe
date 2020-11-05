@@ -11,6 +11,7 @@ export const MainWrapper = styled.div`
 
 export const Heading = styled.h2`
     font-weight: 700;
+    color: var(--color-primary-dark);
     font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: -0.5px;

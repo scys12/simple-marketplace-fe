@@ -1,4 +1,4 @@
-import * as CONSTANT from './contants'
+import * as CONSTANT from './constants'
 
 const INITIAL_STATE = {loading: true,};
 

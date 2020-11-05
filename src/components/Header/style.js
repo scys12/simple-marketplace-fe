@@ -5,8 +5,8 @@ export const NavBar = styled.div`
     height:100%;
     width:100%;
     padding: 10px 0;
-    box-shadow: 1px 0px 5px 1px var(--shadow-color);
     justify-content: flex-end;
+    border-bottom: 1px solid var(--border-color);
 `;
 
 export const NavBarGroup = styled.div`

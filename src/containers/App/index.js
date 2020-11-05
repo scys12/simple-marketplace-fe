@@ -8,6 +8,8 @@ import HomePage from '../HomePage/index'
 import Sidebar from '../Sidebar/index'
 import { getTenLatestItem, getCategories } from './actions'
 import { connect } from 'react-redux';
+import Login from '../Login/index'
+import Register from '../Register/index'
 
 const App = ({getTenLatestItem, getCategories, isLoadingItem, isLoadingCategory}) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +33,8 @@ const App = ({getTenLatestItem, getCategories, isLoadingItem, isLoadingCategory}
                     <Header />
                     <Switch>
                         <Route exact path={'/'} component={HomePage} />
+                        <Route exact path={'/login'} component={Login} />
+                        <Route exact path={'/register'} component={Register} />
                     </Switch>
                     <Footer />
                 </MainWrapper>
